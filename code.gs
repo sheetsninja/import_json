@@ -1,7 +1,7 @@
 /**
  * Returns JSON data for a public URL provided
  *  @param {url} the URL to a public JSON feed
- *  @param {path} the 
+ *  @param {path} the top-level object name where the data array is found (can use commas to delineate a single path (e.g. "data,names") to the data)
  * @return Simple JSON data
  * @customfunction
  * This function does not support parsing complicated JSON structures
