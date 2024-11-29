@@ -6,11 +6,12 @@
  * @customfunction
  * This function does not support parsing complicated JSON structures
  */
+
 function IMPORTJSON(url,path) {  
     let response = UrlFetchApp.fetch(url);
     let data = JSON.parse(response.getContentText());
-    if (path != null) {
-        path = path.split(",");
+    if (path != null) { // if there is a path defined, follow it
+        path = path.split(","); // if there are multiple objects structured, follow it linearally (e.g. if the entirety of the 2nd object is within the 1st object)
         path.forEach(x => data = data[path]);
     }
 
@@ -23,8 +24,8 @@ function IMPORTJSON(url,path) {
     for (i=0; i<data.length; i++) {
         let row = [];
         for (j=0; j<headers.length; j++) {
-            let thisItem = data[i][headers[j]]
-            if (Array.isArray(thisItem)) { thisItem = thisItem.join(",")}
+            let thisItem = data[i][headers[j]];
+            if (Array.isArray(thisItem)) { thisItem = thisItem.join(",")} // if a final item is an array, we'll combine the elements using a comma
             row.push(data[i][headers[j]]);
         }
         rows.push(row);
