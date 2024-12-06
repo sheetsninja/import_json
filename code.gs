@@ -8,8 +8,7 @@
  */
 
 function IMPORTJSON(url,path) {  
-    let response = UrlFetchApp.fetch(url);
-    let data = JSON.parse(response.getContentText());
+    let response = JSON.parse(UrlFetchApp.fetch(url).getContentText());
     if (path != null) { // if there is a path defined, follow it
         path = path.split(","); // if there are multiple objects structured, follow it linearally (e.g. if the entirety of the 2nd object is within the 1st object)
         path.forEach(x => data = data[path]);
@@ -18,8 +17,7 @@ function IMPORTJSON(url,path) {
     if (!data.length) { return []; }
 
     let rows = [];
-    let headers = Object.keys(data[0]);
-    rows.push(headers);
+    rows.push(Object.keys(data[0]))
 
     for (i=0; i<data.length; i++) {
         let row = [];
@@ -30,6 +28,5 @@ function IMPORTJSON(url,path) {
         }
         rows.push(row);
     }
-
     return rows;
 }
